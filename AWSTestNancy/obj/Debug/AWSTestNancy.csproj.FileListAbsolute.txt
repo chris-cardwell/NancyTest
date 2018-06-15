@@ -1,0 +1,12 @@
+c:\users\chris.cardwell\documents\visual studio 2017\Projects\AWSTestNancy\AWSTestNancy\bin\AWSTestNancy.dll.config
+c:\users\chris.cardwell\documents\visual studio 2017\Projects\AWSTestNancy\AWSTestNancy\bin\AWSTestNancy.dll
+c:\users\chris.cardwell\documents\visual studio 2017\Projects\AWSTestNancy\AWSTestNancy\bin\AWSTestNancy.pdb
+c:\users\chris.cardwell\documents\visual studio 2017\Projects\AWSTestNancy\AWSTestNancy\bin\Nancy.dll
+c:\users\chris.cardwell\documents\visual studio 2017\Projects\AWSTestNancy\AWSTestNancy\bin\Nancy.Hosting.Aspnet.dll
+c:\users\chris.cardwell\documents\visual studio 2017\Projects\AWSTestNancy\AWSTestNancy\bin\Nancy.xml
+c:\users\chris.cardwell\documents\visual studio 2017\Projects\AWSTestNancy\AWSTestNancy\bin\Nancy.Hosting.Aspnet.xml
+c:\users\chris.cardwell\documents\visual studio 2017\Projects\AWSTestNancy\AWSTestNancy\obj\Debug\AWSTestNancy.csprojAssemblyReference.cache
+c:\users\chris.cardwell\documents\visual studio 2017\Projects\AWSTestNancy\AWSTestNancy\obj\Debug\AWSTestNancy.csproj.CoreCompileInputs.cache
+c:\users\chris.cardwell\documents\visual studio 2017\Projects\AWSTestNancy\AWSTestNancy\obj\Debug\AWSTestNancy.csproj.CopyComplete
+c:\users\chris.cardwell\documents\visual studio 2017\Projects\AWSTestNancy\AWSTestNancy\obj\Debug\AWSTestNancy.dll
+c:\users\chris.cardwell\documents\visual studio 2017\Projects\AWSTestNancy\AWSTestNancy\obj\Debug\AWSTestNancy.pdb
