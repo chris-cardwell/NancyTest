@@ -1,0 +1,12 @@
+C:\Git\NancyTest\AWSTestNancy\bin\AWSTestNancy.dll.config
+C:\Git\NancyTest\AWSTestNancy\bin\AWSTestNancy.dll
+C:\Git\NancyTest\AWSTestNancy\bin\AWSTestNancy.pdb
+C:\Git\NancyTest\AWSTestNancy\bin\Nancy.dll
+C:\Git\NancyTest\AWSTestNancy\bin\Nancy.Hosting.Aspnet.dll
+C:\Git\NancyTest\AWSTestNancy\bin\Nancy.xml
+C:\Git\NancyTest\AWSTestNancy\bin\Nancy.Hosting.Aspnet.xml
+C:\Git\NancyTest\AWSTestNancy\obj\Release\AWSTestNancy.csprojAssemblyReference.cache
+C:\Git\NancyTest\AWSTestNancy\obj\Release\AWSTestNancy.csproj.CoreCompileInputs.cache
+C:\Git\NancyTest\AWSTestNancy\obj\Release\AWSTestNancy.csproj.CopyComplete
+C:\Git\NancyTest\AWSTestNancy\obj\Release\AWSTestNancy.dll
+C:\Git\NancyTest\AWSTestNancy\obj\Release\AWSTestNancy.pdb
