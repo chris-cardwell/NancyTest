@@ -17,7 +17,6 @@ C:\Git\NancyTest\AWSTestNancy\bin\Nancy.dll
 C:\Git\NancyTest\AWSTestNancy\bin\Nancy.Hosting.Aspnet.dll
 C:\Git\NancyTest\AWSTestNancy\bin\Nancy.xml
 C:\Git\NancyTest\AWSTestNancy\bin\Nancy.Hosting.Aspnet.xml
-C:\Git\NancyTest\AWSTestNancy\obj\Debug\AWSTestNancy.csprojAssemblyReference.cache
 C:\Git\NancyTest\AWSTestNancy\obj\Debug\AWSTestNancy.csproj.CoreCompileInputs.cache
 C:\Git\NancyTest\AWSTestNancy\obj\Debug\AWSTestNancy.csproj.CopyComplete
 C:\Git\NancyTest\AWSTestNancy\obj\Debug\AWSTestNancy.dll

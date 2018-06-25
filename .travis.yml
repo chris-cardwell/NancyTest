@@ -1,5 +1,8 @@
 language: csharp
 solution: AWSTestNancy.sln
+install:
+    - nuget restore AWSTestNancy.sln
+    - nuget install MSBuild.Microsoft.VisualStudio.Web.targets -Version 14.0.0.3
 script:
     - msbuild "AWSTestNancy.sln" /t:Package /p:DeployIisAppPath="Default Web Site" /p:PackageLocation=.\NancyPackage.zip /p:Configuration=Release 
 
