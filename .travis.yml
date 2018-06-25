@@ -1,7 +1,7 @@
 language: csharp
 solution: AWSTestNancy.sln
 script:
-    - msbuild AWSTestNancy\AWSTestNancy.csproj /t:Package /p:DeployIisAppPath="Default Web Site" /p:PackageLocation=.\NancyPackage.zip /p:Configuration=Release 
+    - msbuild "\.AWSTestNancy\AWSTestNancy.csproj" /t:Package /p:DeployIisAppPath="Default Web Site" /p:PackageLocation=.\NancyPackage.zip /p:Configuration=Release 
 
 deploy:
     skip_cleanup: true
