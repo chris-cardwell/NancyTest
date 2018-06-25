@@ -16,4 +16,4 @@ deploy:
     app: "nancytest"
     env: "Nancytest-env-1"
     bucket_name: "elasticbeanstalk-us-east-2-623772476924"
-    zip_file: ".\NancyPackage.zip"
+    zip_file: "NancyPackage.zip"
