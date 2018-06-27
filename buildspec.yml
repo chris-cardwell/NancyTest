@@ -4,8 +4,7 @@ phases:
   build:
     commands:
       - nuget restore AWSTestNancy.sln
-      - msbuild.exe "AWSTestNancy.sln" /t:Package /p:DeployIisAppPath="Default Web Site" /p:PackageLocation=.\NancyPackage.zip /p:Configuration=Release 
-
+      - '& "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\bin\MSBuild.exe" AWSTestNancy.sln /t:Package /p:DeployIisAppPath="Default Web Site" /p:PackageLocation=.\NancyPackage.zip /p:Configuration=Release
 artifacts:
   files:
     - NancyPackage.zip
