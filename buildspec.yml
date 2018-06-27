@@ -1,0 +1,11 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - nuget restore AWSTestNancy.sln
+      - msbuild "AWSTestNancy.sln" /t:Package /p:DeployIisAppPath="Default Web Site" /p:PackageLocation=.\NancyPackage.zip /p:Configuration=Release 
+
+artifacts:
+  files:
+    - NancyPackage.zip
