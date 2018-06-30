@@ -21,3 +21,4 @@ C:\Git\NancyTest\AWSTestNancy\obj\Debug\AWSTestNancy.csproj.CoreCompileInputs.ca
 C:\Git\NancyTest\AWSTestNancy\obj\Debug\AWSTestNancy.csproj.CopyComplete
 C:\Git\NancyTest\AWSTestNancy\obj\Debug\AWSTestNancy.dll
 C:\Git\NancyTest\AWSTestNancy\obj\Debug\AWSTestNancy.pdb
+C:\Git\NancyTest\AWSTestNancy\obj\Debug\AWSTestNancy.csprojAssemblyReference.cache
