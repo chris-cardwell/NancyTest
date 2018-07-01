@@ -22,3 +22,8 @@ C:\Git\NancyTest\AWSTestNancy\obj\Debug\AWSTestNancy.csproj.CopyComplete
 C:\Git\NancyTest\AWSTestNancy\obj\Debug\AWSTestNancy.dll
 C:\Git\NancyTest\AWSTestNancy\obj\Debug\AWSTestNancy.pdb
 C:\Git\NancyTest\AWSTestNancy\obj\Debug\AWSTestNancy.csprojAssemblyReference.cache
+C:\Git\NancyTest\AWSTestNancy\bin\TestNancy.DataServices.dll
+C:\Git\NancyTest\AWSTestNancy\bin\EntityFramework.dll
+C:\Git\NancyTest\AWSTestNancy\bin\TestNancy.DataServices.pdb
+C:\Git\NancyTest\AWSTestNancy\bin\TestNancy.DataServices.dll.config
+C:\Git\NancyTest\AWSTestNancy\bin\EntityFramework.xml

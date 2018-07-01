@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Nancy;
+﻿using Nancy;
 
 namespace AWSTestNancy
 {
@@ -10,7 +6,7 @@ namespace AWSTestNancy
     {
         public HelloModule()
         {
-            Get["/"] = parameters => "Hello World";
+            Get["/"] = parameters => "Hello World2";
         }
     }
 }

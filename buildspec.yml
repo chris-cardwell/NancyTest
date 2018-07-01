@@ -1,12 +1,21 @@
 version: 0.2
 
+env:
+  parameter-store:
+    ESI_DB_USERNAME: "/creds/dbusername"
+    ESI_DB_PASSWORD: "/creds/dbpassword"
+    ESI_DB_NAME: "/creds/dbname"
+
 phases:
   build:
     commands:
       - nuget restore AWSTestNancy.sln
       - nuget install MSBuild.Microsoft.VisualStudio.Web.targets -Version 14.0.0.3
       - msbuild AWSTestNancy.sln /t:Package /p:DeployIisAppPath="Default Web Site" /p:PackageLocation=.\NancyPackage.zip /p:Configuration=Release
-
+  post_build:
+    commands:
+      - cp packages\EntityFramework.6.2.0\tools\migrate.exe AWSTestNancy\bin
+      - AWSTestNancy\bin\migrate.exe "AWSTestNancy\bin\TestNancy.DataServices.dll" /startupConfigurationFile:"AWSTestNancy\Web.config" /ConnectionString:"server=nancypostgre.cladoh8bxcos.us-east-2.rds.amazonaws.com:5432;user id=ESI_DB_USERNAME;password=ESI_DB_PASSWORD;database=ESI_DB_NAME" /connectionProviderName:Npgsql
 artifacts:
   files:
     - AWSTestNancy\NancyPackage.zip
