@@ -1653,8 +1653,8 @@
         </member>
         <member name="M:Npgsql.NpgsqlConnection.ReloadTypes">
             <summary>
-            Flushes the type cache for this connection's connection string and reloads the
-            types for this connection only.
+            Flushes the type cache for this connection's connection string and reloads the types for this connection only.
+            Type changes will appear for other connections only after they are re-opened from the pool.
             </summary>
         </member>
         <member name="T:Npgsql.NoticeEventHandler">
@@ -3156,13 +3156,6 @@
             The number of columns in the current row
             </summary>
         </member>
-        <member name="M:Npgsql.NpgsqlDefaultDataReader.PopulateOutputParameters">
-            <summary>
-            The first row in a stored procedure command that has output parameters needs to be traversed twice -
-            once for populating the output parameters and once for the actual result set traversal. So in this
-            case we can't be sequential.
-            </summary>
-        </member>
         <member name="M:Npgsql.NpgsqlDefaultDataReader.GetValue(System.Int32)">
             <summary>
             Gets the value of the specified column as an instance of <see cref="T:System.Object"/>.
@@ -4632,13 +4625,101 @@
             Assumes that no other threads are accessing the pool.
             </summary>
         </member>
+        <member name="T:Npgsql.PostgresDatabaseInfoFactory">
+            <summary>
+            The default implementation of <see cref="T:Npgsql.INpgsqlDatabaseInfoFactory"/>, for standard PostgreSQL databases..
+            </summary>
+        </member>
+        <member name="M:Npgsql.PostgresDatabaseInfoFactory.Load(Npgsql.NpgsqlConnection,Npgsql.NpgsqlTimeout,System.Boolean)">
+            <inheritdoc />
+        </member>
         <member name="T:Npgsql.PostgresDatabaseInfo">
             <summary>
             The default implementation of NpgsqlDatabase, for standard PostgreSQL databases.
             </summary>
         </member>
+        <member name="F:Npgsql.PostgresDatabaseInfo.Log">
+            <summary>
+            The Npgsql logger instance.
+            </summary>
+        </member>
+        <member name="F:Npgsql.PostgresDatabaseInfo._types">
+            <summary>
+            The PostgreSQL types detected in the database.
+            </summary>
+        </member>
+        <member name="M:Npgsql.PostgresDatabaseInfo.GetTypes">
+            <inheritdoc />
+        </member>
+        <member name="P:Npgsql.PostgresDatabaseInfo.IsRedshift">
+            <summary>
+            True if the backend is Amazon Redshift; otherwise, false.
+            </summary>
+        </member>
         <member name="P:Npgsql.PostgresDatabaseInfo.SupportsUnlisten">
             <inheritdoc />
+        </member>
+        <member name="P:Npgsql.PostgresDatabaseInfo.HasEnumSortOrder">
+            <summary>
+            True if the 'pg_enum' table includes the 'enumsortorder' column; otherwise, false.
+            </summary>
+        </member>
+        <member name="M:Npgsql.PostgresDatabaseInfo.LoadPostgresInfo(Npgsql.NpgsqlConnection,Npgsql.NpgsqlTimeout,System.Boolean)">
+            <summary>
+            Loads database information from the PostgreSQL database specified by <paramref name="conn"/>.
+            </summary>
+            <param name="conn">The database connection.</param>
+            <param name="timeout">The timeout while loading types from the backend.</param>
+            <param name="async">True to load types asynchronously.</param>
+            <returns>
+            A task representing the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Npgsql.PostgresDatabaseInfo.GenerateTypesQuery(System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Generates a raw SQL query string to select type information.
+            </summary>
+            <param name="withRange">True to load range types.</param>
+            <param name="withEnum">True to load enum types.</param>
+            <param name="withEnumSortOrder"></param>
+            <param name="loadTableComposites">True to load table composites.</param>
+            <returns>
+            A raw SQL query string that selects type information.
+            </returns>
+            <remarks>
+            Select all types (base, array which is also base, enum, range, composite).
+            Note that arrays are distinguished from primitive types through them having typreceive=array_recv.
+            Order by primitives first, container later.
+            For arrays and ranges, join in the element OID and type (to filter out arrays of unhandled
+            types).
+            </remarks>
+        </member>
+        <member name="M:Npgsql.PostgresDatabaseInfo.LoadBackendTypes(Npgsql.NpgsqlConnection,Npgsql.NpgsqlTimeout,System.Boolean)">
+            <summary>
+            Loads type information from the backend specified by <paramref name="conn"/>.
+            </summary>
+            <param name="conn">The database connection.</param>
+            <param name="timeout">The timeout while loading types from the backend.</param>
+            <param name="async">True to load types asynchronously.</param>
+            <returns>
+            A collection of types loaded from the backend.
+            </returns>
+            <exception cref="T:System.TimeoutException" />
+            <exception cref="T:System.ArgumentOutOfRangeException">Unknown typtype for type '{internalName}' in pg_type: {typeChar}.</exception>
+        </member>
+        <member name="M:Npgsql.PostgresDatabaseInfo.LoadCompositeFields(System.Data.Common.DbDataReader,System.Collections.Generic.Dictionary{System.UInt32,Npgsql.PostgresTypes.PostgresType})">
+            <summary>
+            Loads composite fields for the composite type specified by the OID.
+            </summary>
+            <param name="reader">The reader from which to read composite fields.</param>
+            <param name="byOID">The OID of the composite type for which fields are read.</param>
+        </member>
+        <member name="M:Npgsql.PostgresDatabaseInfo.LoadEnumLabels(System.Data.Common.DbDataReader,System.Collections.Generic.Dictionary{System.UInt32,Npgsql.PostgresTypes.PostgresType})">
+            <summary>
+            Loads enum labels for the enum type specified by the OID.
+            </summary>
+            <param name="reader">The reader from which to read enum labels.</param>
+            <param name="byOID">The OID of the enum type for which labels are read.</param>
         </member>
         <member name="T:Npgsql.PostgresException">
             <summary>
@@ -5200,9 +5281,9 @@
             this holds the name of the previous statement. Otherwise null.
             </summary>
         </member>
-        <member name="P:Npgsql.PreparedStatement.ParamTypes">
+        <member name="P:Npgsql.PreparedStatement.HandlerParamTypes">
             <summary>
-            Contains the parameter types for a prepared statement, for overloaded cases (same SQL, different param types)
+            Contains the handler types for a prepared statement's parameters, for overloaded cases (same SQL, different param types)
             Only populated after the statement has been prepared (i.e. null for candidates).
             </summary>
         </member>
