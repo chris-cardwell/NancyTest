@@ -15,7 +15,7 @@ phases:
   post_build:
     commands:
       - cp packages\EntityFramework.6.2.0\tools\migrate.exe AWSTestNancy\bin
-      - AWSTestNancy\bin\migrate.exe "AWSTestNancy\bin\TestNancy.DataServices.dll" /startupConfigurationFile:"AWSTestNancy\Web.config" /ConnectionString:"server=nancypostgre.cladoh8bxcos.us-east-2.rds.amazonaws.com:5432;user id=ESI_DB_USERNAME;password=ESI_DB_PASSWORD;database=ESI_DB_NAME" /connectionProviderName:Npgsql
+      - AWSTestNancy\bin\migrate.exe "TestNancy.DataServices.dll" /startupConfigurationFile:"..\..\TestNancy.DataServices\App.config" /ConnectionString:"server=nancypostgre.cladoh8bxcos.us-east-2.rds.amazonaws.com:5432;user id=ESI_DB_USERNAME;password=ESI_DB_PASSWORD;database=ESI_DB_NAME" /connectionProviderName:Npgsql
 artifacts:
   files:
     - AWSTestNancy\NancyPackage.zip

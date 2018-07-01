@@ -115,3 +115,4 @@ C:\Git\NancyTest\TestNancy.DataServices\obj\Debug\TestNancy.DataServices.csproj.
 C:\Git\NancyTest\TestNancy.DataServices\obj\Debug\TestNancy.DataServices.csproj.CopyComplete
 C:\Git\NancyTest\TestNancy.DataServices\obj\Debug\TestNancy.DataServices.dll
 C:\Git\NancyTest\TestNancy.DataServices\obj\Debug\TestNancy.DataServices.pdb
+C:\Git\NancyTest\TestNancy.DataServices\obj\Debug\TestNancy.DataServices.csprojAssemblyReference.cache

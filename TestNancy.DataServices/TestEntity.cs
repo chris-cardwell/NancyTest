@@ -2,7 +2,7 @@
 
 namespace TestNancy.DataServices
 {
-    class TestEntity : DbContext
+    class TestEntity
     {
         public long ID { get; set; }
         public string Name { get; set; }
