@@ -11,7 +11,7 @@ phases:
     commands:
       - nuget restore AWSTestNancy.sln
       - nuget install MSBuild.Microsoft.VisualStudio.Web.targets -Version 14.0.0.3
-      - msbuild AWSTestNancy.sln /t:Package /p:DeployIisAppPath="Default Web Site" /p:PackageLocation=.\NancyPackage.zip /p:Configuration=Release
+      - msbuild AWSTestNancy\AWSTestNancy.csproj /t:Package /p:DeployIisAppPath="Default Web Site" /p:PackageLocation=.\NancyPackage.zip /p:Configuration=Release
   post_build:
     commands:
       - cp packages\EntityFramework.6.2.0\tools\migrate.exe AWSTestNancy\bin
