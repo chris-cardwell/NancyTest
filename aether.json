@@ -1,0 +1,414 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Aether.API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/checkout": {
+      "post": {
+        "tags": [
+          "Checkout"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutResourceRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutResourceRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutResourceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckoutResourceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Ping": {
+      "get": {
+        "tags": [
+          "Ping"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PingResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PingResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PingResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MerchantInfoResource": {
+        "required": [
+          "addressLine1",
+          "city",
+          "name",
+          "phoneNumber",
+          "postalZip",
+          "state"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of your store as you'd like it displayed on the UI",
+            "example": "iQmetrix Corporate Store #5"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "The phone number of your store as you'd like it displayed on the UI",
+            "example": "123-456-7890"
+          },
+          "addressLine1": {
+            "type": "string",
+            "description": "The address of your store as you'd like it displayed on the UI",
+            "example": "250 Howe Street"
+          },
+          "addressLine2": {
+            "type": "string",
+            "description": "A second address line, if you require it",
+            "nullable": true,
+            "example": "Unit 12"
+          },
+          "city": {
+            "type": "string",
+            "description": "The city which your store is located in",
+            "example": "Vancouver"
+          },
+          "state": {
+            "type": "string",
+            "description": "The state which your store is located in",
+            "example": "BC"
+          },
+          "postalZip": {
+            "type": "string",
+            "description": "The Postal ZIP code for your store",
+            "example": "12345"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Information about your store"
+      },
+      "InvoiceResource": {
+        "required": [
+          "invoiceUtcDate",
+          "referenceId",
+          "typeName"
+        ],
+        "type": "object",
+        "properties": {
+          "typeName": {
+            "type": "string",
+            "description": "String name of the invoice type such as:\r\n<list type=\"bullet\"><item>Order</item><item>Sale</item><item>Invoice</item><item>Work Order</item><item>etc</item></list>",
+            "example": "Invoice"
+          },
+          "referenceId": {
+            "type": "string",
+            "description": "A reference ID for the checkout. Ideally a unique identifier for the checkout within your system.",
+            "example": "\"abac298d-6256-4e65-9bcd-69443a5b75a1\" or \"ABC-123_Anything\""
+          },
+          "invoiceUtcDate": {
+            "type": "string",
+            "description": "The UTC date the invoice was created in the original system, in ISO 8601 format: yyyy-MM-ddThh:mm:ss.sssssssZ",
+            "example": "\"2020-01-30T215:55:30.1234567Z\""
+          },
+          "additionalFields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Extra fields that will be shown on the checkout summary.\r\nThese fields will be displayed as is with no additional formatting.",
+            "nullable": true,
+            "example": "[\"Sales Person: Travis Scott\", \"PO Number: 12345\"]"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LineItemsResource": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "subtext": {
+            "type": "string",
+            "description": "Smaller muted description to appear under the name of the item.",
+            "nullable": true,
+            "example": "SN:12345ABC"
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "The quantity of the product for this line",
+            "format": "int32",
+            "example": 2
+          },
+          "lineTotalAmount": {
+            "type": "number",
+            "description": "The total amount for the line. This number can be negative if showing a discount inline.",
+            "format": "double",
+            "example": 12.34
+          },
+          "sortOrder": {
+            "type": "integer",
+            "description": "Numerical order the line items should be sorted in",
+            "format": "int32",
+            "example": 3
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaxesResource": {
+        "required": [
+          "amount",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the tax",
+            "example": "GST"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount of the tax",
+            "format": "double",
+            "example": 0.56
+          }
+        },
+        "additionalProperties": false
+      },
+      "CheckoutTextEnum": {
+        "enum": [
+          "Checkout",
+          "Pay",
+          "Buy"
+        ],
+        "type": "string"
+      },
+      "CheckoutResourceRequest": {
+        "required": [
+          "balanceAmount",
+          "cancelReturnToMerchantURL",
+          "completeReturnToMerchantURL",
+          "currency",
+          "invoice",
+          "merchantInfo",
+          "subtotalAmount",
+          "terms"
+        ],
+        "type": "object",
+        "properties": {
+          "merchantInfo": {
+            "$ref": "#/components/schemas/MerchantInfoResource"
+          },
+          "invoice": {
+            "$ref": "#/components/schemas/InvoiceResource"
+          },
+          "lineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LineItemsResource"
+            },
+            "description": "Info about the line items to appear on the UI",
+            "nullable": true
+          },
+          "subtotalAmount": {
+            "type": "number",
+            "description": "Amount of the order before discounts, taxes, and deposits",
+            "format": "double",
+            "example": 10.05
+          },
+          "discountAmount": {
+            "type": "number",
+            "description": "Sum of discounts applied to the order",
+            "format": "double",
+            "example": 1.01
+          },
+          "depositAmount": {
+            "type": "number",
+            "description": "Total depoist already on the order",
+            "format": "double",
+            "example": 4.04
+          },
+          "taxes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxesResource"
+            },
+            "description": "Information about the taxes applicable to the order",
+            "nullable": true
+          },
+          "balanceAmount": {
+            "type": "number",
+            "description": "The balance payable by the customer after all discounts, deposits, and taxes are applied",
+            "format": "double",
+            "example": 5
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency used for the checkout",
+            "example": "USD"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Markdown enabled field to display generic notes about the invoice.",
+            "nullable": true
+          },
+          "terms": {
+            "type": "string",
+            "description": "Markdown enabled field to display term and conditions, and or the store's refund policy."
+          },
+          "checkoutButtonText": {
+            "$ref": "#/components/schemas/CheckoutTextEnum"
+          },
+          "completeReturnToMerchantURL": {
+            "type": "string",
+            "description": "The full URL that should be presented to the customer once their transaction is complete",
+            "example": "https://www.returntomewhendone.com/landing"
+          },
+          "cancelReturnToMerchantURL": {
+            "type": "string",
+            "description": "The full URL that should be presented to the customer in the summary,\r\nif they choose to cancel the payment transaction and go back to the original site",
+            "example": "https://www.returntomewhencancelled.com/index"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MetaResource": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ErrorsResource": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CheckoutDataResource": {
+        "type": "object",
+        "properties": {
+          "checkoutId": {
+            "type": "string",
+            "nullable": true
+          },
+          "checkoutUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "shareUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "qrCodeUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "expiryDateUTC": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCheckoutUrlSingleUse": {
+            "type": "boolean"
+          },
+          "checkoutSecuredByPin": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CheckoutResourceResponse": {
+        "type": "object",
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/MetaResource"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorsResource"
+            },
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/CheckoutDataResource"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PingResponse": {
+        "type": "object",
+        "properties": {
+          "applicationVersion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
